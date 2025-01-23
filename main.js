@@ -1,13 +1,22 @@
 // Parse command line arguments
-const yargs = require("yargs/yargs");
-const { hideBin } = require("yargs/helpers");
+import yargs from "yargs/yargs";
+import { hideBin } from "yargs/helpers";
 const argv = yargs(hideBin(process.argv)).argv;
 
-const { readCSV, validateHeaders } = require("./lib/utils");
+// Custom functions
+import { readCSV } from "./lib/utils.js";
+import { validateName, validateHeaders, validateURL } from "./lib/validate.js";
 
-const { csvData, headers } = readCSV(argv.input);
+const { data, headers } = readCSV(argv.input);
 
+// MARK: Validate Headers
 validateHeaders(
-  ["Company Name", "Website URL", "LinkedIn Profile URL", "Employee Size"],
+  ["Website URL", "Employee Size", "LinkedIn Profile URL", "Company Name"],
   headers
 );
+
+// MARK: Validate Rows
+data.forEach((row) => {
+  validateName(row["Company Name"]);
+  console.log(validateURL(row["LinkedIn Profile URL"]));
+});
