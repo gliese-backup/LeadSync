@@ -5,7 +5,12 @@ const argv = yargs(hideBin(process.argv)).argv;
 
 // Custom functions
 import { readCSV } from "./lib/utils.js";
-import { validateName, validateHeaders, validateURL } from "./lib/validate.js";
+import {
+  validateName,
+  validateHeaders,
+  validateURL,
+  validateLinkedIn,
+} from "./lib/validate.js";
 
 const { data, headers } = readCSV(argv.input);
 
@@ -18,5 +23,6 @@ validateHeaders(
 // MARK: Validate Rows
 data.forEach((row) => {
   validateName(row["Company Name"]);
-  console.log(validateURL(row["LinkedIn Profile URL"]));
+  console.log(validateURL(row["Website URL"]));
+  console.log(validateLinkedIn(row["LinkedIn Profile URL"]));
 });
