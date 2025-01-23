@@ -1,7 +1,11 @@
-const yargs = require("yargs/yargs"); // cli se read karne deta hai
+const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
 
-console.log(argv.output, argv.input);
+const inputFile = argv.input;
+const outputFile = argv.output;
 
-console.log("Hello");
+const fs = require("fs");
+const dataBuffer = fs.readFileSync(inputFile);
+const data = dataBuffer.toString();
+console.log(data);
